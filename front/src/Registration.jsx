@@ -2,27 +2,30 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 function Registration() {
 
     const[name, setName] = useState('');
     const[email, setEmail] = useState('');
     const[mobile, setMobile] = useState('');
     const[password, setPassword] = useState('');
+    const naviGate = useNavigate()
+
 
     async function register() {
 
-        let result = await fetch("http://localhost:2500/register", {
+        let result = await fetch("http://localhost:2500/patient/register", {
             method: 'post',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({name, email, mobile, password })
         })
         result = await result.json();
-        // if(result.auth) {
+         if(result.auth) {
             localStorage.setItem("token", result.auth);
             naviGate('/booking')
-        // } else {
-        //     alert("Invalid password")
-        // }
+         } else {
+            alert("Not able to register try after sometime")
+         }
 
     }
 

@@ -11,18 +11,18 @@ function Login() {
 
     async function login(){
 
-        let result = await fetch("http://localhost:2500/login", {
+        let result = await fetch("http://localhost:2500/patient/login", {
             method: 'post',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({email, password })
         })
         result = await result.json();
-        // if(result.auth) {
+         if(result.auth) {
             localStorage.setItem("token", result.auth);
             naviGate('/booking')
-        // } else {
-        //     alert("Invalid password")
-        // }
+        } else {
+            alert("Invalid password")
+        }
     }
 
     return(
